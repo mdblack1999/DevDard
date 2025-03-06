@@ -1,6 +1,8 @@
-﻿using DevCard_MVC.Models;
+﻿using System;
+using DevCard_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace DevCard_MVC.Controllers
@@ -9,15 +11,32 @@ namespace DevCard_MVC.Controllers
     {
         public HomeController()
         {
-            
+
         }
-		public IActionResult Index()
+        public IActionResult Index()
         {
             return View();
         }
         public IActionResult Contact()
         {
-	        return View();
+            var model = new Contact();
+            return View(model);
+        }
+
+        //[HttpPost]
+        //public JsonResult Contact(IFormCollection form)
+        //{
+        //    var name = form["name"];
+        //    var email = form["email"];
+        //    var service = form["service"];
+        //    var message= form["message"];
+        //    return Json(Ok());
+        //}
+        [HttpPost]
+        public JsonResult Contact(Contact form)
+        {
+            Console.WriteLine(form);
+            return Json(Ok());
         }
 
         [ResponseCache(Duration = 0 , Location = ResponseCacheLocation.None , NoStore = true)]
